@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react"
 
 export default function App() {
-  const [locale, setLocale] = useState("ko");
+  const [locale, setLocale] = useState("pt"); // default to Portuguese
   const [currency, setCurrency] = useState("CVE");
 
   const t = useMemo(() => {
@@ -110,67 +110,26 @@ export default function App() {
   }, [locale]);
 
   const products = [
-    {
-      id: "rb-barrier-cream",
-      name: "Real Barrier Extreme Cream",
-      desc: {
-        ko: "손상 피부 장벽 케어의 스테디셀러",
-        pt: "Clássico para barreira cutânea fragilizada",
-        en: "Steady seller for damaged skin barrier",
-      },
-      priceCVE: 4200,
-      tags: ["bestseller", "clean"],
-    },
-    {
-      id: "roundlab-dokdo-toner",
-      name: "Round Lab 1025 Dokdo Toner",
-      desc: {
-        ko: "미네랄 밸런싱 수분 토너",
-        pt: "Tónico hidratante com minerais",
-        en: "Mineral‑balanced hydrating toner",
-      },
-      priceCVE: 2800,
-      tags: ["bestseller"],
-    },
-    {
-      id: "abib-gummy-sheet",
-      name: "Abib Gummy Sheet Mask",
-      desc: {
-        ko: "찰떡 시트 밀착 보습",
-        pt: "Máscara com aderência tipo mochi",
-        en: "Mochi‑fit sheet hydration",
-      },
-      priceCVE: 600,
-      tags: ["new"],
-    },
-    {
-      id: "cosrx-aha-bha",
-      name: "COSRX AHA/BHA Toner",
-      desc: {
-        ko: "부드러운 각질·피지 케어",
-        pt: "Esfoliação suave e sebo care",
-        en: "Gentle exfoliation & sebum care",
-      },
-      priceCVE: 2300,
-      tags: ["clean"],
-    },
+    { id: "rb-barrier-cream", name: "Real Barrier Extreme Cream",
+      desc: { ko: "손상 피부 장벽 케어의 스테디셀러", pt: "Clássico para barreira cutânea fragilizada", en: "Steady seller for damaged skin barrier" },
+      priceCVE: 4200, tags: ["bestseller", "clean"] },
+    { id: "roundlab-dokdo-toner", name: "Round Lab 1025 Dokdo Toner",
+      desc: { ko: "미네랄 밸런싱 수분 토너", pt: "Tónico hidratante com minerais", en: "Mineral‑balanced hydrating toner" },
+      priceCVE: 2800, tags: ["bestseller"] },
+    { id: "abib-gummy-sheet", name: "Abib Gummy Sheet Mask",
+      desc: { ko: "찰떡 시트 밀착 보습", pt: "Máscara com aderência tipo mochi", en: "Mochi‑fit sheet hydration" },
+      priceCVE: 600, tags: ["new"] },
+    { id: "cosrx-aha-bha", name: "COSRX AHA/BHA Toner",
+      desc: { ko: "부드러운 각질·피지 케어", pt: "Esfoliação suave e sebo care", en: "Gentle exfoliation & sebum care" },
+      priceCVE: 2300, tags: ["clean"] },
   ];
 
   function cvtPrice(pCVE) {
-    const rate = {
-      CVE: 1,
-      USD: 0.0096, // demo
-      KRW: 13.5,   // demo
-    };
+    const rate = { CVE: 1, USD: 0.0096, KRW: 13.5 };
     const val = pCVE * rate[currency];
     const fmt = new Intl.NumberFormat(
       locale === "pt" ? "pt-PT" : locale === "ko" ? "ko-KR" : "en-US",
-      {
-        style: "currency",
-        currency: currency,
-        currencyDisplay: "narrowSymbol",
-        maximumFractionDigits: currency === "CVE" ? 0 : 2,
-      }
+      { style: "currency", currency: currency, currencyDisplay: "narrowSymbol", maximumFractionDigits: currency === "CVE" ? 0 : 2 }
     );
     return fmt.format(val);
   }
@@ -185,21 +144,13 @@ export default function App() {
           <div className="font-semibold tracking-tight">{t.brand}</div>
           <div className="flex items-center gap-3">
             <label className="text-sm opacity-60">{t.langLabel}</label>
-            <select
-              className="rounded-xl border px-2 py-1 text-sm"
-              value={locale}
-              onChange={(e) => setLocale(e.target.value)}
-            >
-              <option value="ko">한국어</option>
+            <select className="rounded-xl border px-2 py-1 text-sm" value={locale} onChange={(e) => setLocale(e.target.value)}>
               <option value="pt">Português</option>
               <option value="en">English</option>
+              <option value="ko">한국어</option>
             </select>
             <label className="text-sm opacity-60 ml-2">{t.currencyLabel}</label>
-            <select
-              className="rounded-xl border px-2 py-1 text-sm"
-              value={currency}
-              onChange={(e) => setCurrency(e.target.value)}
-            >
+            <select className="rounded-xl border px-2 py-1 text-sm" value={currency} onChange={(e) => setCurrency(e.target.value)}>
               <option value="CVE">CVE</option>
               <option value="KRW">KRW</option>
               <option value="USD">USD</option>
@@ -212,28 +163,13 @@ export default function App() {
       <section className="relative overflow-hidden">
         <div className="mx-auto max-w-6xl px-4 py-14 grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">
-              {t.tagline}
-            </h1>
+            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">{t.tagline}</h1>
             <p className="mt-4 text-lg opacity-80">{t.subtag}</p>
             <p className="mt-2 text-sm opacity-60">{t.heroNote}</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                className="rounded-2xl shadow px-5 py-3 text-white bg-black"
-                href="#contact"
-              >
-                {t.shopNow}
-              </a>
-              <a
-                className="rounded-2xl border px-5 py-3"
-                href="https://wa.me/2380000000" target="_blank"
-                rel="noreferrer"
-              >
-                WhatsApp
-              </a>
-              <a className="rounded-2xl border px-5 py-3" href="tel:+2389000000">
-                +238 900 0000
-              </a>
+              <a className="rounded-2xl shadow px-5 py-3 text-white bg-black" href="#contact">{t.shopNow}</a>
+              <a className="rounded-2xl border px-5 py-3" href="https://wa.me/2380000000" target="_blank" rel="noreferrer">WhatsApp</a>
+              <a className="rounded-2xl border px-5 py-3" href="tel:+2389000000">+238 900 0000</a>
             </div>
           </div>
           <div className="relative">
@@ -255,9 +191,7 @@ export default function App() {
                 <div className="aspect-square rounded-2xl bg-neutral-100" />
                 <div className="mt-3 flex items-center gap-2 flex-wrap">
                   {p.tags.map((tag) => (
-                    <span key={tag} className="text-[11px] rounded-full border px-2 py-0.5 opacity-80">
-                      {t.badges[tag]}
-                    </span>
+                    <span key={tag} className="text-[11px] rounded-full border px-2 py-0.5 opacity-80">{t.badges[tag]}</span>
                   ))}
                 </div>
                 <h3 className="mt-2 font-semibold">{p.name}</h3>
